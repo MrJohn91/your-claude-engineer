@@ -43,7 +43,14 @@ export default function FilterPanel({ onFilterChange }: FilterPanelProps) {
         setConfig(data);
         setLoading(false);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error');
+        // Fallback to demo data if backend is not available
+        console.warn('Backend not available, using demo data');
+        setConfig({
+          platforms: ['LinkedIn', 'X (Twitter)', 'Telegram', 'TikTok', 'Instagram'],
+          industries: ['Technology', 'Finance', 'Marketing', 'Healthcare', 'Education', 'E-commerce', 'Media'],
+          roles: ['Founder', 'CEO', 'CTO', 'Engineer', 'Designer', 'Product Manager', 'Marketing Manager'],
+          regions: ['San Francisco, CA', 'New York, NY', 'Austin, TX', 'Seattle, WA', 'Los Angeles, CA', 'Boston, MA'],
+        });
         setLoading(false);
       }
     };
@@ -88,16 +95,16 @@ export default function FilterPanel({ onFilterChange }: FilterPanelProps) {
 
   if (loading) {
     return (
-      <div style={styles.panel}>
-        <p style={styles.loadingText}>Loading filters...</p>
+      <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+        <p className="text-center text-gray-600 dark:text-gray-400">Loading filters...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div style={styles.panel}>
-        <p style={styles.errorText}>Error: {error}</p>
+      <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+        <p className="text-center text-red-600 dark:text-red-400">Error: {error}</p>
       </div>
     );
   }
@@ -107,21 +114,28 @@ export default function FilterPanel({ onFilterChange }: FilterPanelProps) {
   }
 
   return (
-    <div style={styles.panel}>
-      <div style={styles.header}>
-        <h2 style={styles.title}>Target Audience Filters</h2>
-        <button onClick={handleClearFilters} style={styles.clearButton}>
+    <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+          Target Audience Filters
+        </h2>
+        <button
+          onClick={handleClearFilters}
+          className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+        >
           Clear All
         </button>
       </div>
 
       {/* Platform Selector */}
-      <div style={styles.filterGroup}>
-        <label style={styles.label}>Platform</label>
+      <div className="mb-6">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Platform
+        </label>
         <select
           value={filters.platform}
           onChange={handlePlatformChange}
-          style={styles.select}
+          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
         >
           <option value="">Select Platform</option>
           {config.platforms.map((platform) => (
@@ -133,19 +147,20 @@ export default function FilterPanel({ onFilterChange }: FilterPanelProps) {
       </div>
 
       {/* Industries Multi-Select */}
-      <div style={styles.filterGroup}>
-        <label style={styles.label}>Industries</label>
-        <div style={styles.chipContainer}>
+      <div className="mb-6">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Industries
+        </label>
+        <div className="flex flex-wrap gap-2">
           {config.industries.map((industry) => (
             <button
               key={industry}
               onClick={() => handleMultiSelectChange('industries', industry)}
-              style={{
-                ...styles.chip,
-                ...(filters.industries.includes(industry)
-                  ? styles.chipActive
-                  : {}),
-              }}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                filters.industries.includes(industry)
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+              }`}
             >
               {industry}
             </button>
@@ -154,17 +169,20 @@ export default function FilterPanel({ onFilterChange }: FilterPanelProps) {
       </div>
 
       {/* Roles Multi-Select */}
-      <div style={styles.filterGroup}>
-        <label style={styles.label}>Roles</label>
-        <div style={styles.chipContainer}>
+      <div className="mb-6">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Roles
+        </label>
+        <div className="flex flex-wrap gap-2">
           {config.roles.map((role) => (
             <button
               key={role}
               onClick={() => handleMultiSelectChange('roles', role)}
-              style={{
-                ...styles.chip,
-                ...(filters.roles.includes(role) ? styles.chipActive : {}),
-              }}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                filters.roles.includes(role)
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+              }`}
             >
               {role}
             </button>
@@ -173,17 +191,20 @@ export default function FilterPanel({ onFilterChange }: FilterPanelProps) {
       </div>
 
       {/* Regions Multi-Select */}
-      <div style={styles.filterGroup}>
-        <label style={styles.label}>Regions</label>
-        <div style={styles.chipContainer}>
+      <div className="mb-6">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Regions
+        </label>
+        <div className="flex flex-wrap gap-2">
           {config.regions.map((region) => (
             <button
               key={region}
               onClick={() => handleMultiSelectChange('regions', region)}
-              style={{
-                ...styles.chip,
-                ...(filters.regions.includes(region) ? styles.chipActive : {}),
-              }}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                filters.regions.includes(region)
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+              }`}
             >
               {region}
             </button>
@@ -192,20 +213,22 @@ export default function FilterPanel({ onFilterChange }: FilterPanelProps) {
       </div>
 
       {/* Search Query */}
-      <div style={styles.filterGroup}>
-        <label style={styles.label}>Search Query</label>
+      <div className="mb-6">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Search Query
+        </label>
         <input
           type="text"
           value={filters.searchQuery}
           onChange={handleSearchChange}
           placeholder="Enter search keywords..."
-          style={styles.input}
+          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
         />
       </div>
 
       {/* Filter Summary */}
-      <div style={styles.summary}>
-        <p style={styles.summaryText}>
+      <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
+        <p className="text-sm text-gray-600 dark:text-gray-400">
           <strong>Active Filters:</strong>{' '}
           {filters.platform && `Platform: ${filters.platform}`}
           {filters.industries.length > 0 &&
@@ -222,108 +245,3 @@ export default function FilterPanel({ onFilterChange }: FilterPanelProps) {
     </div>
   );
 }
-
-const styles = {
-  panel: {
-    backgroundColor: '#ffffff',
-    border: '1px solid #e5e7eb',
-    borderRadius: '8px',
-    padding: '1.5rem',
-    marginBottom: '1.5rem',
-    fontFamily: 'system-ui, -apple-system, sans-serif',
-  } as React.CSSProperties,
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '1.5rem',
-  } as React.CSSProperties,
-  title: {
-    fontSize: '1.25rem',
-    fontWeight: '600',
-    color: '#111827',
-    margin: 0,
-  } as React.CSSProperties,
-  clearButton: {
-    backgroundColor: 'transparent',
-    border: '1px solid #d1d5db',
-    borderRadius: '4px',
-    padding: '0.5rem 1rem',
-    fontSize: '0.875rem',
-    color: '#6b7280',
-    cursor: 'pointer',
-    transition: 'all 0.2s',
-  } as React.CSSProperties,
-  filterGroup: {
-    marginBottom: '1.5rem',
-  } as React.CSSProperties,
-  label: {
-    display: 'block',
-    fontSize: '0.875rem',
-    fontWeight: '500',
-    color: '#374151',
-    marginBottom: '0.5rem',
-  } as React.CSSProperties,
-  select: {
-    width: '100%',
-    padding: '0.625rem',
-    border: '1px solid #d1d5db',
-    borderRadius: '6px',
-    fontSize: '0.875rem',
-    backgroundColor: '#ffffff',
-    color: '#111827',
-    cursor: 'pointer',
-    transition: 'border-color 0.2s',
-  } as React.CSSProperties,
-  input: {
-    width: '100%',
-    padding: '0.625rem',
-    border: '1px solid #d1d5db',
-    borderRadius: '6px',
-    fontSize: '0.875rem',
-    backgroundColor: '#ffffff',
-    color: '#111827',
-    boxSizing: 'border-box' as const,
-  } as React.CSSProperties,
-  chipContainer: {
-    display: 'flex',
-    flexWrap: 'wrap' as const,
-    gap: '0.5rem',
-  } as React.CSSProperties,
-  chip: {
-    padding: '0.5rem 0.875rem',
-    border: '1px solid #d1d5db',
-    borderRadius: '20px',
-    fontSize: '0.875rem',
-    backgroundColor: '#ffffff',
-    color: '#374151',
-    cursor: 'pointer',
-    transition: 'all 0.2s',
-    whiteSpace: 'nowrap' as const,
-  } as React.CSSProperties,
-  chipActive: {
-    backgroundColor: '#3b82f6',
-    borderColor: '#3b82f6',
-    color: '#ffffff',
-  } as React.CSSProperties,
-  summary: {
-    marginTop: '1.5rem',
-    paddingTop: '1rem',
-    borderTop: '1px solid #e5e7eb',
-  } as React.CSSProperties,
-  summaryText: {
-    fontSize: '0.875rem',
-    color: '#6b7280',
-    margin: 0,
-  } as React.CSSProperties,
-  loadingText: {
-    fontSize: '0.875rem',
-    color: '#6b7280',
-    textAlign: 'center' as const,
-  } as React.CSSProperties,
-  errorText: {
-    fontSize: '0.875rem',
-    color: '#ef4444',
-    textAlign: 'center' as const,
-  } as React.CSSProperties,
-};

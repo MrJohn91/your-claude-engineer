@@ -13,7 +13,7 @@ from typing import Dict, List
 from datetime import datetime
 import uuid
 
-from .models import (
+from models import (
     ContactSchema,
     ScrapeRequest,
     ScrapeResponse,
@@ -21,8 +21,8 @@ from .models import (
     ExportSheetRequest,
     ExportSheetResponse
 )
-from .scraper import ApifyScraperService
-from .sheets import GoogleSheetsService
+from scraper import ApifyScraperService
+from sheets import GoogleSheetsService
 
 app = FastAPI(
     title="Outreach Scraping Toolkit",
