@@ -1,0 +1,48 @@
+# Target Audience Configuration Template
+# Define your target audience for LinkedIn and Instagram scraping
+
+linkedin:
+  # LinkedIn search criteria
+  job_titles:
+    - "Software Engineer"
+    - "Product Manager"
+    - "Data Scientist"
+
+  locations:
+    - "United States"
+    - "San Francisco Bay Area"
+
+  industries:
+    - "Technology"
+    - "Software Development"
+
+  company_sizes:
+    - "51-200 employees"
+    - "201-500 employees"
+
+  keywords:
+    - "AI"
+    - "Machine Learning"
+    - "SaaS"
+
+instagram:
+  # Instagram search criteria
+  hashtags:
+    - "#entrepreneur"
+    - "#startup"
+    - "#tech"
+    - "#innovation"
+
+  account_types:
+    - "business"
+    - "creator"
+
+  min_followers: 1000
+  max_followers: 100000
+
+  engagement_rate_min: 0.02  # 2%
+
+scraping_limits:
+  linkedin_max_profiles: 100
+  instagram_max_profiles: 100
+  rate_limit_delay: 2  # seconds between requests
