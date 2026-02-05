@@ -1,31 +1,30 @@
 # Target Audience Configuration
-# Define target audience filters for outreach scraping
+# This file defines the targeting parameters for lead generation
+
+industries:
+  - AI
+  - Web3
+  - blockchain
+  - tech startups
+
+roles:
+  - Founders
+  - CEOs
+  - Co-founders
+  - BD heads
+  - Product Owners
+  - Growth Leads
+
+regions:
+  - Germany
+  - broader EU
+  - other European countries
+  - South Asia
+  - Southeast Asia
+  - China
 
 platforms:
   - LinkedIn
   - X
   - Telegram
   - TikTok
-  - Instagram
-
-industries:
-  - AI
-  - Web3
-  - Blockchain
-  - Tech Startups
-
-roles:
-  - Founder
-  - CEO
-  - Co-founder
-  - BD Head
-  - Product Owner
-  - Growth Lead
-
-regions:
-  - Germany
-  - Broader EU
-  - Other European Countries
-  - South Asia
-  - Southeast Asia
-  - China
