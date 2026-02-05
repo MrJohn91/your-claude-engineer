@@ -78,7 +78,7 @@ def get_continuation_task(project_dir: Path) -> str:
 
 def copy_spec_to_project(project_dir: Path) -> None:
     """
-    Copy the app spec file into the project directory for the agent to read.
+    Copy the app spec file and UI reference assets into the project directory for the agent to read.
 
     Args:
         project_dir: Target project directory
@@ -89,6 +89,8 @@ def copy_spec_to_project(project_dir: Path) -> None:
     """
     spec_source: Path = PROMPTS_DIR / "app_spec.txt"
     spec_dest: Path = project_dir / "app_spec.txt"
+    ui_ref_source: Path = PROMPTS_DIR / "ui_reference"
+    ui_ref_dest: Path = project_dir / "ui_reference"
 
     if not spec_source.exists():
         raise FileNotFoundError(
@@ -105,3 +107,12 @@ def copy_spec_to_project(project_dir: Path) -> None:
                 f"Failed to copy app spec to {spec_dest}: {e}\n"
                 f"Check disk space and permissions."
             ) from e
+
+    if ui_ref_source.exists() and ui_ref_source.is_dir():
+        try:
+            if ui_ref_dest.exists():
+                shutil.rmtree(ui_ref_dest)
+            shutil.copytree(ui_ref_source, ui_ref_dest)
+            print(f"Copied ui_reference/ to {project_dir}")
+        except (IOError, OSError) as e:
+            print(f"Warning: could not copy ui_reference to project: {e}")

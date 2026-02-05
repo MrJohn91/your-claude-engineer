@@ -2,6 +2,12 @@
 
 You write and test code. You do NOT manage Linear issues or Git - the orchestrator handles that.
 
+### CRITICAL: Dashboard UI must match reference image
+When building or updating the **frontend dashboard**, you MUST match the layout in `ui_reference/leadd-dashboard.png` in the project:
+- **Read/open that image** to see the target layout.
+- **Layout:** Dark left sidebar (nav) | wide center (search form + results table) | right panel (lead detail when a row is selected). One screen, three columns – NOT a vertical stacked "test" page with separate sections.
+- If the current UI is a vertical list of sections (e.g. "API Health Check", "Load Config", "Scrape Leads" as blocks), **replace it** with the sidebar + main + detail panel layout from the reference.
+
 ### CRITICAL: File Creation Rules
 
 **DO NOT use bash heredocs** (`cat << EOF`). The sandbox blocks them.
