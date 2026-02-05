@@ -46,6 +46,12 @@ venv.bak/
 .env.local
 .env.*.local
 
+# Google credentials (NEVER commit these!)
+config/google-credentials.json
+config/*-credentials.json
+**/credentials.json
+*.json.secret
+
 # Node
 node_modules/
 npm-debug.log*
@@ -77,11 +83,13 @@ htmlcov/
 .claude/
 
 # Screenshots and media
-screenshots/
-*.png
-*.jpg
-*.jpeg
-*.gif
+# Note: Screenshots directory kept for documentation purposes
+# Add ! prefix to specific files you want to track
+# screenshots/
+# *.png
+# *.jpg
+# *.jpeg
+# *.gif
 
 # Setup and documentation files
 linear_setup.md
