@@ -59,9 +59,9 @@ def scrape_google_maps(keyword: str, city: str, state: str, max_results: int = 2
     Falls back to mock data if APIFY_API_TOKEN is not set.
 
     Args:
-        keyword: Search keyword (e.g., "coffee shops", "tech startups")
-        city: City name
-        state: State/Country name
+        keyword: Audience-focused search (e.g., "AI founders", "Web3 startups", "tech BD leads")
+        city: City or area (e.g., Berlin, Singapore)
+        state: Region or country (e.g., Germany, South Asia)
         max_results: Maximum number of results to return
 
     Returns:

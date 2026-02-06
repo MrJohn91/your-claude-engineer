@@ -1,5 +1,6 @@
 # Target Audience Configuration
 # This file defines the targeting parameters for lead generation
+# Platforms: LinkedIn, X, Telegram, TikTok only (no Instagram)
 
 industries:
   - AI
